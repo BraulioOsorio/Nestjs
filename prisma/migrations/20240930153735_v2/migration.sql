@@ -2,9 +2,8 @@
 CREATE TABLE "users" (
     "id_user" TEXT NOT NULL,
     "full_name" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
     "mail" TEXT NOT NULL,
-    "role" TEXT NOT NULL,
+    "phone" INTEGER NOT NULL,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id_user")
 );
@@ -22,8 +21,27 @@ CREATE TABLE "cars" (
     CONSTRAINT "cars_pkey" PRIMARY KEY ("car_id")
 );
 
+-- CreateTable
+CREATE TABLE "sales" (
+    "sales_id" SERIAL NOT NULL,
+    "car_id" INTEGER NOT NULL,
+    "user_id" TEXT NOT NULL,
+    "sale" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "sales_pkey" PRIMARY KEY ("sales_id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_mail_key" ON "users"("mail");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "users_phone_key" ON "users"("phone");
+
 -- AddForeignKey
 ALTER TABLE "cars" ADD CONSTRAINT "cars_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id_user") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "sales" ADD CONSTRAINT "sales_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id_user") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "sales" ADD CONSTRAINT "sales_car_id_fkey" FOREIGN KEY ("car_id") REFERENCES "cars"("car_id") ON DELETE RESTRICT ON UPDATE CASCADE;

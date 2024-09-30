@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
 import { cars } from "@prisma/client";
+import { CreateCarsDto, UpdateCarDto } from "./cars-validation.dto";
 @Injectable()
 export class CarsService{
     constructor(private prisma : PrismaService){}
@@ -13,12 +14,12 @@ export class CarsService{
             where:{car_id : id}
         });
     }
-    async createCar(data : cars): Promise<cars>{
+    async createCar(data : CreateCarsDto): Promise<cars>{
         return this.prisma.cars.create({
             data
         });
     }
-    async updateCar(id:number,data:cars): Promise<cars>{
+    async updateCar(id:number,data:UpdateCarDto): Promise<cars>{
         return this.prisma.cars.update({
             where:{car_id : id},
             data

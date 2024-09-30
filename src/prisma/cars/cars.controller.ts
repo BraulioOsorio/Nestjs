@@ -1,6 +1,7 @@
 import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from "@nestjs/common";
 import { CarsService } from "./cars.service";
 import { cars } from "@prisma/client";
+import { CreateCarsDto, UpdateCarDto } from "./cars-validation.dto";
 @Controller('cars')
 export class CarsController{
     constructor(private readonly carsService : CarsService){}
@@ -11,8 +12,8 @@ export class CarsController{
     }
 
     @Post()
-    async createCars(@Body() data : cars){
-        return this.carsService.createCar(data)
+    async createCars(@Body() createCarValidation : CreateCarsDto){
+        return this.carsService.createCar(createCarValidation)
     }
 
     @Get(':id')
@@ -33,9 +34,9 @@ export class CarsController{
     }
 
     @Put(':id')
-    async updateCard(@Param('id') id : string,@Body() data:cars){
+    async updateCard(@Param('id') id : string,@Body() updateCarValidation:UpdateCarDto){
         try {
-            return await this.carsService.updateCar(+id,data) 
+            return await this.carsService.updateCar(+id,updateCarValidation) 
         } catch (error) {
             throw new NotFoundException("Car does not Found")
         }
