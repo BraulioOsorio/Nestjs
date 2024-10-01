@@ -1,4 +1,4 @@
-import { IsEmail, IsInt, IsNotEmpty, IsString } from "class-validator";
+import { IsEmail, IsInt, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 
 export class CreateUserDto{
@@ -13,6 +13,10 @@ export class CreateUserDto{
     @IsInt()
     @IsNotEmpty({message:"The number field cannot be empty"})
     phone : number;
+
+    @IsString()
+    @IsOptional()
+    id_user : string;
     
 }
 export class UpdateUserDto{

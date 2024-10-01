@@ -8,4 +8,4 @@ import { PrimaModule } from "../prisma.module";
     providers:[SalesService],
     imports:[PrimaModule]
 })
-export class UserModule{}
+export class SaleModule{}

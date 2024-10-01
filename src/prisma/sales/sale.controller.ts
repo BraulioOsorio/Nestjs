@@ -1,43 +1,44 @@
 import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from "@nestjs/common";
 import { SalesService } from "./sale.service";
 import { sales } from "@prisma/client";
+import { CreateSaleDro } from "./sale-validation.dto";
 @Controller('sales')
 export class SaleController{
     constructor(private readonly SaleService : SalesService){}
 
     @Get()
     async getAllSale(){
-        return this.SaleService.getAllUsers()
+        return this.SaleService.getAllSales()
     }
 
     @Post()
-    async createUsers(@Body() data : sales){
-        return this.SaleService.createUser(data)
+    async createSales(@Body() createSalesValidationDpo : CreateSaleDro){
+        return this.SaleService.createSales(createSalesValidationDpo)
     }
 
     @Get(':id')
-    async getUserById(@Param('id') id : string){
-        const userFound = await this.SaleService.getUserById(id)
-        if(!userFound) throw new NotFoundException("User does not found")
-        return userFound
+    async getSalesById(@Param('id') id : string){
+        const saleFound = await this.SaleService.getSaleById(id)
+        if(!saleFound) throw new NotFoundException("Sale does not found")
+        return saleFound
     }
 
     @Delete(':id')
-    async DeleteUser(@Param('id') id : string){
+    async DeleteSale(@Param('id') id : string){
         try {
-            return await this.SaleService.deleteUser(id)
+            return await this.SaleService.deleteSale(id)
         } catch (error) {
-            throw new NotFoundException("User does not Found")
+            throw new NotFoundException("Sale does not Found")
         }
         
     }
 
     @Put(':id')
-    async updateCard(@Param('id') id : string,@Body() data:sales){
+    async updateSale(@Param('id') id : string,@Body() createSalesValidationDpo : CreateSaleDro){
         try {
-            return await this.SaleService.updateUser(id,data) 
+            return await this.SaleService.updateSale(id,createSalesValidationDpo) 
         } catch (error) {
-            throw new NotFoundException("User does not Found")
+            throw new NotFoundException("Sale does not Found")
         }
     }
 }

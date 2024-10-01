@@ -1,33 +1,34 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
 import { sales } from "@prisma/client";
+import { CreateSaleDro } from "./sale-validation.dto";
 @Injectable()
 export class SalesService{
     constructor(private prisma : PrismaService){}
 
-    async getAllUsers(): Promise<sales[]>{
+    async getAllSales(): Promise<sales[]>{
         return this.prisma.sales.findMany();
     }
-    async getUserById(id : string): Promise<sales>{
-        return this.prisma.users.findUnique({
-            where:{id_user : id}
+    async getSaleById(id : string): Promise<sales>{
+        return this.prisma.sales.findUnique({
+            where:{sales_id : +id}
         });
     }
-    async createUser(data : sales): Promise<sales>{
-        return this.prisma.users.create({
+    async createSales(data : CreateSaleDro): Promise<sales>{
+        return this.prisma.sales.create({
             data
         });
     }
-    async updateUser(id:string,data:users): Promise<sales>{
-        return this.prisma.users.update({
-            where:{id_user : id},
+    async updateSale(id:string,data:CreateSaleDro): Promise<sales>{
+        return this.prisma.sales.update({
+            where:{sales_id : +id},
             data
         });
     }
 
-    async deleteUser(id:string): Promise<sales>{
-        return this.prisma.users.delete({
-            where:{id_user : id}
+    async deleteSale(id:string): Promise<sales>{
+        return this.prisma.sales.delete({
+            where:{sales_id : +id}
             
         });
     }

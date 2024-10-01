@@ -1,10 +1,10 @@
-import { IsEmail, IsInt, IsNotEmpty, IsString } from "class-validator";
+import { IsInt, IsNotEmpty, IsString } from "class-validator";
 
 
-export class CreateUserDto{
-    @IsString()
+export class CreateSaleDro{
+    @IsInt()
     @IsNotEmpty({message:"THe car field cannot be empty"})
-    car_id: string;
+    car_id : number;
 
     @IsString()
     @IsNotEmpty({message:"The user field cannot be empty"})
