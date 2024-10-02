@@ -43,7 +43,7 @@ export class UserService{
         })
         if(exist_email && id != exist_email.id_user){
             throw new BadRequestException("Email ya existe")
-        }else if(exist_phone && id != exist_email.id_user){
+        }else if(exist_phone && id != exist_phone.id_user){
             throw new BadRequestException("Phone ya existe")
         }
         return this.prisma.users.update({

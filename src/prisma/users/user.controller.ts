@@ -36,13 +36,9 @@ export class UserController{
     @Put(':id')
     async updateUser(@Param('id') id: string, @Body() updateValidationUser: UpdateUserDto) {
         try {
-        return await this.userService.updateUser(id, updateValidationUser);
+            return await this.userService.updateUser(id, updateValidationUser);
         } catch (error) {
-        console.error('Error updating user:', error);
-        if (error instanceof NotFoundException || error instanceof BadRequestException) {
-            throw error;
-        }
-        throw new NotFoundException('User does not Found', error.message);
+            throw new NotFoundException('User does not Found');
         }
     }
 }
