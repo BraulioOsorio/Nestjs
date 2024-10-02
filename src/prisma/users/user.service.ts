@@ -20,10 +20,10 @@ export class UserService{
             id_user: generate_user_id() 
         };
         const exist_email = await this.prisma.users.findFirst({
-            where:{mail : data.mail}
+            where:{ mail : data.mail}
         })
         const exist_phone = await this.prisma.users.findFirst({
-            where:{phone : data.phone}
+            where:{ phone : data.phone}
         })
         if(exist_email){
             throw new BadRequestException("Email ya existe")
@@ -36,10 +36,10 @@ export class UserService{
     }
     async updateUser(id:string,data:UpdateUserDto): Promise<users>{
         const exist_email = await this.prisma.users.findFirst({
-            where:{mail : data.mail}
+            where:{ mail : data.mail}
         })
         const exist_phone = await this.prisma.users.findFirst({
-            where:{phone : data.phone}
+            where:{ phone : data.phone}
         })
         if(exist_email && id != exist_email.id_user){
             throw new BadRequestException("Email ya existe")
