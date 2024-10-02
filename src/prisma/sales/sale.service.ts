@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
 import { sales } from "@prisma/client";
 import { CreateSaleDro } from "./sale-validation.dto";
+import { get_current_datetime } from "core/config/utils";
 @Injectable()
 export class SalesService{
     constructor(private prisma : PrismaService){}
@@ -15,8 +16,12 @@ export class SalesService{
         });
     }
     async createSales(data : CreateSaleDro): Promise<sales>{
+        const newsale = {
+            ...data,
+            sale: get_current_datetime() 
+          };
         return this.prisma.sales.create({
-            data
+            data : newsale
         });
     }
     async updateSale(id:string,data:CreateSaleDro): Promise<sales>{
