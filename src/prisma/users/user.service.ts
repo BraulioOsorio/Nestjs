@@ -19,10 +19,10 @@ export class UserService{
             ...data,
             id_user: generate_user_id() 
         };
-        const exist_email = await this.prisma.users.findUnique({
+        const exist_email = await this.prisma.users.findFirst({
             where:{mail : data.mail}
         })
-        const exist_phone = await this.prisma.users.findUnique({
+        const exist_phone = await this.prisma.users.findFirst({
             where:{phone : data.phone}
         })
         if(exist_email){
@@ -35,10 +35,10 @@ export class UserService{
         });
     }
     async updateUser(id:string,data:UpdateUserDto): Promise<users>{
-        const exist_email = await this.prisma.users.findUnique({
+        const exist_email = await this.prisma.users.findFirst({
             where:{mail : data.mail}
         })
-        const exist_phone = await this.prisma.users.findUnique({
+        const exist_phone = await this.prisma.users.findFirst({
             where:{phone : data.phone}
         })
         if(exist_email && id != exist_email.id_user){

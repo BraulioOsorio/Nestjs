@@ -1,6 +1,5 @@
-import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from "@nestjs/common";
 import { UserService } from "./user.service";
-import { cars, users } from "@prisma/client";
 import { CreateUserDto, UpdateUserDto } from "./user-validation.dto";
 @Controller('users')
 export class UserController{

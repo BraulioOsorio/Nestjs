@@ -1,6 +1,5 @@
-import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from "@nestjs/common";
+import {  Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from "@nestjs/common";
 import { SalesService } from "./sale.service";
-import { sales } from "@prisma/client";
 import { CreateSaleDro } from "./sale-validation.dto";
 @Controller('sales')
 export class SaleController{
